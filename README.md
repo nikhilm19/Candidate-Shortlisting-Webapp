@@ -4,7 +4,7 @@
 
 Challenge : Create a Candidate shortlisting web app showing details of Candidates
 
-[![UI](https://img.shields.io/website?down_color=red&down_message=Check+here&label=Website&style=for-the-badge&up_color=green&up_message=Click+Here&url=https%3A%2F%2Frelaxed-allen-83e504.netlify.app%2F)](https://relaxed-allen-83e504.netlify.app)
+[![UI](https://img.shields.io/website?down_color=red&down_message=Check+here&label=Website&style=for-the-badge&up_color=green&up_message=Click+Here&url=https%3A%2F%2Fadoring-perlman-1bd921.netlify.app%2F)](https://adoring-perlman-1bd921.netlify.app/)
 
 The webapp is deployed on Netlify .
 

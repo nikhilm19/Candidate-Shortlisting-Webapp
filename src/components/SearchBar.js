@@ -40,7 +40,7 @@ class SearchBar extends React.Component {
                 type="text"
                 onSubmit={this.onFormSubmit}
                 onChange={(e) => this.setState({ term: e.target.value })}
-                placeholder="Search your favorite dishes"
+                placeholder="Search a candidate"
               ></input>
             </span>
           </div>

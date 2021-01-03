@@ -2,12 +2,57 @@ import React from "react";
 import { Link } from "react-router-dom";
 import history from "../history";
 
-export default function RecipeReviewCard(props) {
+export default function CandidateReviewCard(props) {
   const [show, setShow] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const renderButton = () => {
+    if (props.isFiltered === true) {
+      if (props.shortlisted === true) {
+        return (
+          <button className="text-white bg-green-500 w-full px-4 py-4 text-center disabled">
+            Accepted
+          </button>
+        );
+      } else if (props.rejected === true) {
+        return (
+          <button className="text-white bg-green-500 w-full px-4 py-4 text-center disabled">
+            Rejected
+          </button>
+        );
+      }
+    } else {
+      return (
+        <div className="w-full h-full flex flex-row">
+          <button
+            className="text-white bg-green-500  w-full px-4 py-4 text-center"
+            onClick={() =>
+              history.push({
+                pathname: "/checkout",
+                state: { candidate: props.candidate },
+              })
+            }
+          >
+            Accept
+          </button>
+          <button
+            className="text-white bg-red-500 w-full h-full px-4 py-4 text-center"
+            onClick={() =>
+              history.push({
+                pathname: "/checkout",
+                state: { candidate: props.candidate },
+              })
+            }
+          >
+            Reject
+          </button>
+        </div>
+      );
+    }
   };
 
   return (
@@ -28,17 +73,17 @@ export default function RecipeReviewCard(props) {
             position: "absolute",
             top: 0,
             left: 0,
-            backgroundColor: "hsla(123, 61%, 13%, 0.82)",
+            backgroundColor: "rgba(0, 74, 117, 0.72)",
           }}
         >
           <Link
-            to={`/${props.recipe.id}`}
+            to={`/${props.candidate.id}`}
             className=" bg-transparent text-white border-gray-500 border p-2 w-32 text-center mb-2 rounded hover:bg-blue-400 transition ease-in-out duration-500"
           >
             View More
           </Link>
           <Link
-            to={`/${props.recipe.id}`}
+            to={`/${props.candidate.id}`}
             className=" bg-transparent text-white border-gray-500 border p-2 w-32 text-center mb-2 rounded hover:bg-indigo-400 transition ease-in-out duration-500"
           >
             All Details
@@ -55,8 +100,8 @@ export default function RecipeReviewCard(props) {
             backgroundRepeat: "no-repeat",
             backgroundImage:
               props.keyId % 2 == 0
-                ? ` url(${props.recipe.image})`
-                : ` url('${props.recipe.image}')`,
+                ? ` url(${props.candidate.image})`
+                : ` url('${props.candidate.image}')`,
           }}
           onClick={() => history.push(`${props.keyId}`)}
         >
@@ -66,10 +111,11 @@ export default function RecipeReviewCard(props) {
 
               {"Recommended"}
             </h1>
-          ) : (""
+          ) : (
+            ""
             // <h1 className="bg-gray-700 w-16 text-white px-2 py-1 text-center ml-auto label font-nunito text-sm">
             //   {/* 4 <i class="fas fa-star stars"></i> */}
-            //   {props.recipe.label === "" ? "New" : props.recipe.label}
+            //   {props.candidate.label === "" ? "New" : props.candidate.label}
             // </h1>
           )}
         </div>
@@ -78,33 +124,33 @@ export default function RecipeReviewCard(props) {
           {props.keyId % 2 == 0 ? (
             <div class="px-6 py-4 bg-gray-800 border-none flex flex-grow flex-col w-full ">
               <div class="font-black font-nunito text-2xl text-white">
-                {props.recipe.name}
+                {props.candidate.name}
               </div>
 
               <div class="flex flex-row justify-between">
                 <div className="flex flex-row text-white">
                   {/* <i class="far fa-clock w-6 h-6 flex my-auto justify-center items-center"></i> */}
                   {/* <h1 class="rounded-full  py-1 text-sm font-semibold text-white mr-2">
-                    Rs {props.recipe.price}
+                    Rs {props.candidate.price}
                   </h1> */}
                 </div>
                 <div>
                   <i class="fas fa-heart ml-auto text-red-400"></i>
                 </div>
               </div>
-              <p class="text-white text-xs mt-2">{props.recipe.description}</p>
+              <p class="text-white text-xs mt-2">{props.candidate.description}</p>
             </div>
           ) : (
             <div class=" px-6 py-4 bg-white  flex flex-grow flex-col ">
               <div class="font-black font-nunito text-2xl text-black">
-                {props.recipe.name}
+                {props.candidate.name}
               </div>
 
               <div class="bg-white flex flex-row justify-between">
                 <div className="flex flex-row">
                   {/* <i class="far fa-clock w-6 h-6 flex my-auto justify-center items-center"></i> */}
                   {/* <h1 class="rounded-full  py-1 text-sm font-semibold text-black mr-2">
-                    Rs {props.recipe.price}
+                    Rs {props.candidate.price}
                   </h1> */}
                 </div>
                 <div>
@@ -112,48 +158,15 @@ export default function RecipeReviewCard(props) {
                 </div>
               </div>
               <p class="text-black text-xs h-full mt-2">
-                {props.recipe.description}
+                {props.candidate.description}
               </p>
             </div>
           )}
 
           <div className="flex flex-row  justify-center h-full ">
-            <buton
-              className="text-white bg-green-500 w-full px-4 py-4 text-center"
-              onClick={() =>
-                history.push({
-                  pathname: "/checkout",
-                  state: { recipe: props.recipe },
-                })
-              }
-            >
-              Accept
-            </buton>
-            <buton
-              className="text-white bg-red-500 w-full h-full px-4 py-4 text-center"
-              onClick={() =>
-                history.push({
-                  pathname: "/checkout",
-                  state: { recipe: props.recipe },
-                })
-              }
-            >
-              Reject
-            </buton>
+            {renderButton()}
           </div>
         </div>
-
-        {/* <div className="text-black flex flex-row justify-center">
-          <div className="w-8">
-            <button className="w-full">-</button>
-          </div>
-          <div className="">
-            <input type="number"></input>
-          </div>
-          <div className="w-8">
-            <button className="w-full">+</button>
-          </div>
-        </div> */}
       </div>
     </div>
   );

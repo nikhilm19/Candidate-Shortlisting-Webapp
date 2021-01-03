@@ -1,6 +1,8 @@
 const shortlistReducer = (state = { accepted: [], rejected: [] }, action) => {
   //   console.log(accepted, rejected);
 
+  
+
   if (action.type === "ACCEPT") {
     return {
       ...state,

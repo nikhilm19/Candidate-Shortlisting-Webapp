@@ -7,16 +7,29 @@ class Shortlisted extends React.Component {
     super(props);
   }
   renderList() {
-    return <CandidateList recipes={this.props.accepted} />;
+    if (this.props.accepted === null)
+      return (
+        <div className="w-full h-full my-auto text-center mt-16">
+          Sorry, you haven't shortlisted any candidates.
+        </div>
+      );
+    return (
+      <CandidateList
+        recipes={this.props.accepted}
+        isFiltered={true}
+        isShortlisted={true}
+      />
+    );
   }
 
   render() {
-    return <div className="w-1/2 ">{this.renderList()}</div>;
+    return <div className="w-full h-full">{this.renderList()}</div>;
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   console.log(state);
+  if (state === undefined) return { accepted: null, rejected: null };
   return {
     accepted: state.accepted,
     rejected: state.rejected,

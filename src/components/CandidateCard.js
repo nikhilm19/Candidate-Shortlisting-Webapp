@@ -1,7 +1,7 @@
 import React from "react";
-import RecipeCardContent from "./CandidateCardContent";
+import candidateCardContent from "./CandidateCardContent";
 import MuiCard from "./Card";
-class RecipeCard extends React.Component {
+class candidateCard extends React.Component {
   constructor(props) {
     super(props);
     this.imageRef = React.createRef();
@@ -22,18 +22,24 @@ class RecipeCard extends React.Component {
   };
 
   render() {
-    console.log(this.props.recipe);
-    const { image, name, label } = this.props.recipe;
+    console.log(this.props.candidate);
+    const { image, name, label } = this.props.candidate;
     return (
       <div
         className="h-full card"
         style={{ gridRowEnd: `span ${this.state.spans}`, overflow: "hidden" }}
         ref={this.imageRef}
       >
-        <MuiCard recipe={this.props.recipe} keyId={this.props.keyId} />
+        <MuiCard
+          candidate={this.props.candidate}
+          keyId={this.props.keyId}
+          shortlisted={this.props.shortlisted}
+          rejected={this.props.rejected}
+          isFiltered={this.props.isFiltered}
+        />
       </div>
     );
   }
 }
 
-export default RecipeCard;
+export default candidateCard;

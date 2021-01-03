@@ -1,46 +1,57 @@
 import React from "react";
 import CandidateCard from "./CandidateCard";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const CandidateList = (props) => {
   let k = -1;
-  if (props.recipes.length === 0) {
+  if (props.candidates.length === 0) {
     console.log("no no");
   } else {
-    console.log(props.recipes);
+    console.log(props.candidates);
   }
-  let recipes = [];
+  let candidates = [];
 
-  if (props.recipes.length !== 0) {
-    recipes = props.recipes.map((recipe) => {
+  if (props.candidates.length !== 0) {
+    candidates = props.candidates.map((candidate) => {
       k++;
-      console.log(recipe);
+      console.log(candidate);
 
       return (
         <div className="h-full rounded  mx-4 sm:w-1/4 h-64 mb-8">
           <CandidateCard
-            key={recipe.id}
+            key={candidate.id}
             keyId={k}
-            recipe={recipe}
+            candidate={candidate}
+            rejected={props.isRejected}
+            shortlisted={props.isShortlisted}
+            isFiltered={props.isFiltered}
           ></CandidateCard>
         </div>
       );
     });
   }
-  return props.recipes.length !== 0 ? (
-    <div>
+  return props.candidates.length !== 0 ? (
+    <div className="w-full">
       <div className="flex ml-auto sm:px-48 pr-4 flex-col my-8">
-        <h1 className="text-gray-500  text-right">Category</h1>
-        <h1 className="text-2xl text-gray-900 font-extrabold font-nunito text-right">
+        <h1 className="text-gray-500  text-center">Category</h1>
+        <h1 className="text-2xl text-gray-900 font-extrabold font-nunito text-center">
           Software Engineers
         </h1>
+        <div className="ml-auto">
+          <Link
+            to="/shortlisted"
+            className="bg-green-600 p-4 rounded mr-4 text-white"
+          >
+            Accepted
+          </Link>
+          <Link to="/rejected" className="bg-red-600 p-4 rounded text-white">
+            Rejected
+          </Link>
+        </div>
       </div>
-      <div>
-        <Link to="/shortlisted">Accepted</Link>
-        <Link to="/rejected">Rejected</Link>
-      </div>
+
       <div className="z-1 sm:px-16 flex sm:flex-row flex-wrap justify-center flex-col">
-        {recipes}
+        {candidates}
       </div>
     </div>
   ) : (

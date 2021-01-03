@@ -1,6 +1,6 @@
 import React from "react";
 
-import recipeApi from "../api/recipe";
+import recipeApi from "../api/candidate";
 import recipes from "../data/candidates.json";
 import starIcon from "../assets/icons/Icon awesome-star.png";
 import { Link } from "react-router-dom";

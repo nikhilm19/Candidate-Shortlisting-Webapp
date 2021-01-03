@@ -12,8 +12,9 @@ import axios from "axios";
         }
     }
 }) */
-var recipeApi = axios.create({
-  baseURL: "http://starlord.hackerearth.com/recipe",
+var candidateApi = axios.create({
+  baseURL:
+    "https://s3-ap-southeast-1.amazonaws.com/he-public-data/users49b8675.json",
 });
 
-export default recipeApi;
+export default candidateApi;

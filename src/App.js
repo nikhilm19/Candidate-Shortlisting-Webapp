@@ -1,13 +1,13 @@
 import React from "react";
 import SearchBar from "./components/SearchBar";
 import { Router, Route, Link } from "react-router-dom";
-import recipe from "./api/recipe";
+import candidate from "./api/candidate";
 import history from "./history";
 
 import axios from "axios";
-import recipes from "./data/candidates.json";
-import RecipeList from "./components/CandidateList";
-import RecipeDetail from "./components/CandidateDetails";
+import candidates from "./data/candidates.json";
+import CandidateList from "./components/CandidateList";
+import CandidateDetail from "./components/CandidateDetails";
 
 import Illustration1 from "./assets/images/Illustration1.png";
 
@@ -17,37 +17,39 @@ import Illustration4 from "./assets/images/Illustration4.png";
 import Checkout from "./components/Checkout";
 import Otp from "./components/Otp";
 import Shortlisted from "./components/Shortlisted";
+import Rejected from "./components/Rejected";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipes: [],
+      candidates: [],
       results: [],
     };
   }
 
   async componentDidMount() {
     try {
-      this.setState({ recipes: recipes, results: recipes });
-      const response = await recipe.get("");
+      this.setState({ candidates: candidates, results: candidates });
+      const response = await candidate.get("");
       // console.log(response);
       // console.log(response.data);
       if (response.status !== 200) {
-        this.setState({ recipes: recipes, results: recipes });
-      } else this.setState({ recipes: response.data, results: response.data });
+        this.setState({ candidates: candidates, results: candidates });
+      } else
+        this.setState({ candidates: response.data, results: response.data });
     } catch (e) {
-      this.setState({ recipes: recipes, results: recipes });
+      this.setState({ candidates: candidates, results: candidates });
     }
-    // const response = recipes;
+    // const response = candidates;
   }
   onSubmit = async (term) => {
     // console.log(term);
     if (term === "") {
-      this.setState({ results: this.state.recipes });
+      this.setState({ results: this.state.candidates });
     }
-    let results = this.state.recipes.filter((recipe) => {
-      return recipe.name.startsWith(term);
+    let results = this.state.candidates.filter((candidate) => {
+      return candidate.name.startsWith(term);
     });
 
     this.setState({ results });
@@ -82,15 +84,16 @@ class App extends React.Component {
           <Route
             path="/"
             exact
-            component={() => <RecipeList recipes={this.state.results} />}
+            component={() => <CandidateList candidates={this.state.results} />}
           />
           <Route path="/shortlisted" exact component={() => <Shortlisted />} />
+          <Route path="/rejected" exact component={() => <Rejected />} />
 
           <Route
             path="/:id"
             exact
             render={(props) => (
-              <RecipeDetail recipes={this.state.recipes} {...props} />
+              <CandidateDetail candidates={this.state.candidates} {...props} />
             )}
           />
 
