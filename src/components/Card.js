@@ -20,7 +20,7 @@ export default function CandidateReviewCard(props) {
         );
       } else if (props.rejected === true) {
         return (
-          <button className="text-white bg-green-500 w-full px-4 py-4 text-center disabled">
+          <button className="text-white bg-red-500 w-full px-4 py-4 text-center disabled">
             Rejected
           </button>
         );
@@ -100,8 +100,8 @@ export default function CandidateReviewCard(props) {
             backgroundRepeat: "no-repeat",
             backgroundImage:
               props.keyId % 2 == 0
-                ? ` url(${props.candidate.image})`
-                : ` url('${props.candidate.image}')`,
+                ? ` url(${props.candidate.Image})`
+                : ` url('${props.candidate.Image}')`,
           }}
           onClick={() => history.push(`${props.keyId}`)}
         >
@@ -138,7 +138,9 @@ export default function CandidateReviewCard(props) {
                   <i class="fas fa-heart ml-auto text-red-400"></i>
                 </div>
               </div>
-              <p class="text-white text-xs mt-2">{props.candidate.description}</p>
+              <p class="text-white text-xs mt-2">
+                {props.candidate.description}
+              </p>
             </div>
           ) : (
             <div class=" px-6 py-4 bg-white  flex flex-grow flex-col ">

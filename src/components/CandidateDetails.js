@@ -1,7 +1,7 @@
 import React from "react";
 
-import recipeApi from "../api/candidate";
-import recipes from "../data/candidates.json";
+import candidateApi from "../api/candidate";
+import candidates from "../data/candidates.json";
 import starIcon from "../assets/icons/Icon awesome-star.png";
 import { Link } from "react-router-dom";
 import Poster from "../assets/images/Img1.jpg";
@@ -16,25 +16,29 @@ class Details extends React.Component {
   }
 
   shortlistCandidate = () => {
-    console.log(this.state.recipe);
-    this.props.acceptCandidate(this.state.recipe);
+    console.log(this.state.candidate);
+    this.props.acceptCandidate(this.state.candidate);
+  };
+  rejectCandidate = () => {
+    console.log(this.state.candidate);
+    this.props.rejectCandidate(this.state.candidate);
   };
   componentDidMount = async () => {
-    //const data = await recipeApi.get("");
-    // const response = await recipeApi.get("");
+    //const data = await candidateApi.get("");
+    // const response = await candidateApi.get("");
 
-    const response = recipes;
+    const response = candidates;
 
     console.log(this.props.match.params.id);
 
     this.setState({
-      recipe: response[parseInt(this.props.match.params.id) - 1000],
+      candidate: response[parseInt(this.props.match.params.id) - 1000],
     });
   };
 
   render() {
-    console.log(this.state.recipe);
-    return this.state.recipe ? (
+    console.log(this.state.candidate);
+    return this.state.candidate ? (
       <section class="text-gray-700 body-font flex flex-col w-full sm:px-48 py-5 mt-5">
         <div className="sm:ml-4 sticky sm:static top-0 bg-white z-10 sm:bg-transparent">
           <Link to="/" className="go-back font-nunito pl-4">
@@ -49,7 +53,7 @@ class Details extends React.Component {
                 <img
                   class="h-72 rounded w-full object-fit object-center mb-6"
                   alt="content"
-                  src={this.state.recipe.image}
+                  src={this.state.candidate.image}
                 />
                 <h3 class=" text-xl font-medium ">About:</h3>
                 <h2 class="text-gray-600 font-medium  mb-4 text-xs">
@@ -74,7 +78,7 @@ class Details extends React.Component {
                 {/* // */}
               </h2>
               <h2 class="text-gray-900 text-lg mb-1 font-bold sm:text-4xl text-2xl font-nunito text-center sm:text-right">
-                {this.state.recipe ? this.state.recipe.name : "Foobar"}
+                {this.state.candidate ? this.state.candidate.name : "Foobar"}
               </h2>
 
               {/* <div className="flex flex-row sm:ml-auto mx-auto">
@@ -112,7 +116,7 @@ class Details extends React.Component {
               </div>
 
               {/* <h2 class="leading-relaxed text-sm mb-5 text-gray-600 text-center sm:text-right mb-4">
-                FAVOURITE THIS RECIPE <span role="img">❤️</span>
+                FAVOURITE THIS candidate <span role="img">❤️</span>
               </h2> */}
               <span className="text-black bg-indigo-200 border border-gray-300 mb-4 border-2 w-full"></span>
               <button
@@ -121,7 +125,10 @@ class Details extends React.Component {
               >
                 Shortlist
               </button>
-              <button class="text-white  bg-red-600 border-0 py-4 px-6 hover:bg-red-500 focus:outline-none  text-lg rounded-md ">
+              <button
+                onClick={this.rejectCandidate}
+                class="text-white  bg-red-600 border-0 py-4 px-6 hover:bg-red-500 focus:outline-none  text-lg rounded-md "
+              >
                 Reject
               </button>
               {/* <textarea
@@ -141,4 +148,4 @@ class Details extends React.Component {
   }
 }
 
-export default connect(null, { acceptCandidate })(Details);
+export default connect(null, { acceptCandidate, rejectCandidate })(Details);

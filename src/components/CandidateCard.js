@@ -23,7 +23,7 @@ class candidateCard extends React.Component {
 
   render() {
     console.log(this.props.candidate);
-    const { image, name, label } = this.props.candidate;
+    const { Image, name, label } = this.props.candidate;
     return (
       <div
         className="h-full card"

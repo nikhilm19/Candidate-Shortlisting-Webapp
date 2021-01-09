@@ -15,7 +15,7 @@ class Shortlisted extends React.Component {
       );
     return (
       <CandidateList
-        recipes={this.props.accepted}
+        candidates={this.props.accepted}
         isFiltered={true}
         isShortlisted={true}
       />
